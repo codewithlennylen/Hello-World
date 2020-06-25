@@ -1,5 +1,5 @@
 import pandas as pd 
-
+from nltk.tokenize import word_tokenize
 
 ## Importing Tweets from the CSV file
 df = pd.read_csv('data/twitter1.6m.csv', encoding='utf-8')
@@ -14,7 +14,14 @@ df.columns =['target','ids','date','flag','user','text']
 
 ## Clean the Dataset - Reformatting it to drop columns i do not need for this model
 dataset = df[['text', 'target']]
-print(dataset.head())
-print(dataset.tail())
-print(dataset.shape)
-print(dataset.columns)
+# print(dataset.head())
+# print(dataset.tail())
+# print(dataset.shape)
+# print(dataset.columns)
+
+X = dataset['text']
+y = dataset['target']
+print(X.tail())
+
+X_tokens = [word_tokenize(word) for word in X]
+print(X_tokens[-1])
