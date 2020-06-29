@@ -19,9 +19,13 @@ dataset = df[['text', 'target']]
 # print(dataset.shape)
 # print(dataset.columns)
 
-X = dataset['text']
-y = dataset['target']
-print(X.tail())
+X = dataset['text'] # These are the tweets :> object
+y = dataset['target'] # These are the scores [0-4] :> int64
+# print(X.tail())
+# print(y.tail())
 
-X_tokens = [word_tokenize(word) for word in X]
-print(X_tokens[-1])
+## Tokenization
+# X_tokens = [word_tokenize(word) for word in X] # Returns a List of Lists containing tokens
+# print(X_tokens[-1])
+
+## Stop-words Removal
