@@ -1,6 +1,7 @@
 import pandas as pd 
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
 
 ## Importing Tweets from the CSV file
 # df = pd.read_csv('data/twitter1.6m.csv', encoding='utf-8')
@@ -65,3 +66,19 @@ for tweet_token_list in X_tokens:
 
 print(len(X_tokens_stopwords))
 print(X_tokens_stopwords[-1])
+
+
+stemmer = PorterStemmer()
+X_stemmed = []
+for token_list in X_tokens_stopwords:
+	new_list = []
+	for token in token_list:
+		new_list.append(stemmer.stem(token))
+	X_stemmed.append(new_list)
+
+print(' Stemmed ')
+print(len(X_stemmed))
+print(X_stemmed[-1])
+
+X = X_stemmed
+print(X[-1])
