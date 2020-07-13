@@ -82,3 +82,5 @@ print(X_stemmed[-1])
 
 X = X_stemmed
 print(X[-1])
+
+## FEATURE EXTRACTION
