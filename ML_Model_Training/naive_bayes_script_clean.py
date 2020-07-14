@@ -4,6 +4,7 @@ from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import MultinomialNB
 
 ## Importing Tweets from the CSV file
 # df = pd.read_csv('data/twitter1.6m.csv', encoding='utf-8')
@@ -33,3 +34,12 @@ X_train_tfidf = tfidf_transformer.fit_transform(X_train_counts)
 print('Done Extracting Features')
 print(X_train_tfidf.shape) # (12, 140)
 print(X_train_tfidf) 
+
+
+## MACHINE LEARNING MODEL-BUILDING
+# Define the model
+clf = MultinomialNB()
+
+# Train the model
+clf.fit(X_train_tfidf, y_train)
+print('Classifier Trained Successfully')
