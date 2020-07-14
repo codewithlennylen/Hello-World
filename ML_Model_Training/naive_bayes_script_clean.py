@@ -33,7 +33,11 @@ X_train_tfidf = tfidf_transformer.fit_transform(X_train_counts)
 
 print('Done Extracting Features')
 print(X_train_tfidf.shape) # (12, 140)
-print(X_train_tfidf) 
+print(X_train_tfidf)
+
+# new data to be feature-extracted before being predicted by the classifier
+y_test_count = count_vec.transform(y_test)
+y_test_tfidf = tfidf_transformer.transform(y_test_count)
 
 
 ## MACHINE LEARNING MODEL-BUILDING
@@ -43,3 +47,7 @@ clf = MultinomialNB()
 # Train the model
 clf.fit(X_train_tfidf, y_train)
 print('Classifier Trained Successfully')
+
+## MODEL EVALUATION
+predictions = clf.predict(y_test_tfidf)
+print(predictions)
