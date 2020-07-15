@@ -5,6 +5,7 @@ from nltk.stem import PorterStemmer
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.utils import shuffle
 
 ## Importing Tweets from the CSV file
 # df = pd.read_csv('data/twitter1.6m.csv', encoding='utf-8')
@@ -16,6 +17,8 @@ df.columns =['text', 'target']
 
 X = df['text'] # These are the tweets :> object
 y = df['target'] # These are the scores [0-4] :> int64
+# Shuffle the Data
+X, y = shuffle(X, y)
 # print(X.tail())
 # print(y.tail())
 
