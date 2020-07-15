@@ -23,7 +23,7 @@ X, y = shuffle(X, y)
 # print(y.tail())
 
 ## SPLIT THE DATASET INTO TRAIN AND TEST SETS
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=24)
 
 ## FEATURE EXTRACTION
 # Bag-of-Words Model
