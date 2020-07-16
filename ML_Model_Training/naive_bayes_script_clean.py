@@ -12,18 +12,19 @@ from sklearn.utils import shuffle
 # df.columns =['target','ids','date','flag','user','text']
 
 ## Importing Tweets from the CSV file ->> Tiny Dataset
-df = pd.read_csv('C:\\Users\\lenovo\\Documents\\GitHub\\Hello-World\\ML_Model_Training\\data\\tiny_dataset.csv', encoding='utf-8')
-df.columns =['text', 'target']
+df = pd.read_csv(
+    "C:\\Users\\lenovo\\Documents\\GitHub\\Hello-World\\ML_Model_Training\\data\\mini.csv", encoding='utf-8')
+df.columns =['target','ids','date','flag','user','text']
+# Shuffle the Data
+df = shuffle(df)
 
 X = df['text'] # These are the tweets :> object
 y = df['target'] # These are the scores [0-4] :> int64
-# Shuffle the Data
-X, y = shuffle(X, y)
 # print(X.tail())
 # print(y.tail())
 
 ## SPLIT THE DATASET INTO TRAIN AND TEST SETS
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=24)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=24)
 
 ## FEATURE EXTRACTION
 # Bag-of-Words Model

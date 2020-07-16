@@ -6,5 +6,5 @@ data = shuffle(data)
 print("loaded and shuffled dataset")
 
 new_data = data[:2000]
-new_data.to_csv("C:\\Users\\lenovo\\Documents\\GitHub\\Hello-World\\ML_Model_Training\\data\\mini.csv")
+new_data.to_csv("C:\\Users\\lenovo\\Documents\\GitHub\\Hello-World\\ML_Model_Training\\data\\mini.csv", index=False)
 print("successfully wrote changes")
