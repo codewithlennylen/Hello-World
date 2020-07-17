@@ -7,6 +7,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.utils import shuffle
 
+print('Libraries Imported Successfully')
+
 ## Importing Tweets from the CSV file
 # df = pd.read_csv('data/twitter1.6m.csv', encoding='utf-8')
 # df.columns =['target','ids','date','flag','user','text']
@@ -23,6 +25,8 @@ y = df['target'] # These are the scores [0-4] :> int64
 # print(X.tail())
 # print(y.tail())
 
+print('Dataset Loaded and Shuffled')
+
 ## SPLIT THE DATASET INTO TRAIN AND TEST SETS
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=24)
 
@@ -36,13 +40,13 @@ tfidf_transformer = TfidfTransformer(use_idf=False)
 X_train_tfidf = tfidf_transformer.fit_transform(X_train_counts)
 
 print('Done Extracting Features')
-print(X_train_tfidf.shape) # (12, 140)
-print(X_train_tfidf)
+print(f"X_train_tfidf.shape : {X_train_tfidf.shape}") # (12, 140)
+# print(X_train_tfidf)
 
 # new data to be feature-extracted before being predicted by the classifier
-y_test_count = count_vec.transform(y_test)
-y_test_tfidf = tfidf_transformer.transform(y_test_count)
-
+X_test_count = count_vec.transform(X_test)
+X_test_tfidf = tfidf_transformer.transform(X_test_count)
+print(f"X_test_tfidf.shape : {X_test_tfidf.shape}")
 
 ## MACHINE LEARNING MODEL-BUILDING
 # Define the model
@@ -53,5 +57,5 @@ clf.fit(X_train_tfidf, y_train)
 print('Classifier Trained Successfully')
 
 ## MODEL EVALUATION
-predictions = clf.predict(y_test_tfidf)
+predictions = clf.predict(X_test_tfidf)
 print(predictions)
