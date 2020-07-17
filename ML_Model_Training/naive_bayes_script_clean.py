@@ -6,6 +6,7 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.utils import shuffle
+from sklearn.metrics import accuracy_score
 
 print('Libraries Imported Successfully')
 
@@ -58,4 +59,5 @@ print('Classifier Trained Successfully')
 
 ## MODEL EVALUATION
 predictions = clf.predict(X_test_tfidf)
-print(predictions)
+# print(predictions)
+print(accuracy_score(y_test, predictions)) # accuracy_score(y_true, y_pred)
