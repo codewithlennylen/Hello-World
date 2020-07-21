@@ -1,12 +1,13 @@
 import pandas as pd 
-from nltk.tokenize import word_tokenize
+from nltk.tokenize import word_tokenize #
 from nltk.corpus import stopwords
-from nltk.stem import PorterStemmer
+from nltk.stem import PorterStemmer #
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.utils import shuffle
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import (accuracy_score, confusion_matrix, recall_score,
+                             precision_score, f1_score)
 
 print('Libraries Imported Successfully')
 
@@ -60,4 +61,9 @@ print('Classifier Trained Successfully')
 ## MODEL EVALUATION
 predictions = clf.predict(X_test_tfidf)
 # print(predictions)
-print(accuracy_score(y_test, predictions)) # accuracy_score(y_true, y_pred)
+
+print(f'\nConfusion Matrix : {confusion_matrix(y_test, predictions)}')
+print(f'\nAccuracy Score : {accuracy_score(y_test, predictions)}')
+print(f'\nRecall Score : {recall_score(y_test, predictions, average=None)}')
+print(f'\nPrecision Score : {precision_score(y_test, predictions, average=None)}')
+print(f'\nF1 Score : {f1_score(y_test, predictions, average=None)}')
