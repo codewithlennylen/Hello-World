@@ -32,9 +32,22 @@ print('Dataset Loaded and Shuffled')
 ## SPLIT THE DATASET INTO TRAIN AND TEST SETS
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=24)
 
+
 ## FEATURE EXTRACTION
+def tok(text):
+    tokens = word_tokenize(text)
+    return tokens
+
+stemmer = PorterStemmer()
+def custom_preprocessor(text):
+    stems = stemmer.stem(text)
+    return stems
+
+
+# Stopwords - CountVectorizer has an in-built stopwords list
+stop_wordss = stopwords.words('english')
 # Bag-of-Words Model
-count_vec = CountVectorizer()
+count_vec = CountVectorizer(stop_words=stop_wordss, tokenizer=tok, ngram_range=(1,2), preprocessor=custom_preprocessor)
 X_train_counts = count_vec.fit_transform(X_train)
 
 # Tf-idf
