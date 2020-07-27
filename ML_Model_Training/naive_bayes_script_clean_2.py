@@ -8,12 +8,10 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.utils import shuffle
 from sklearn.metrics import (accuracy_score, confusion_matrix, recall_score,
                              precision_score, f1_score)
+from sklearn.pipeline import Pipeline
 
 print('Libraries Imported Successfully')
 
-## Importing Tweets from the CSV file
-# df = pd.read_csv('data/twitter1.6m.csv', encoding='utf-8')
-# df.columns =['target','ids','date','flag','user','text']
 
 ## Importing Tweets from the CSV file ->> Tiny Dataset
 df = pd.read_csv(
@@ -24,8 +22,7 @@ df = shuffle(df)
 
 X = df['text'] # These are the tweets :> object
 y = df['target'] # These are the scores [0-4] :> int64
-# print(X.tail())
-# print(y.tail())
+
 
 print('Dataset Loaded and Shuffled')
 
@@ -33,47 +30,22 @@ print('Dataset Loaded and Shuffled')
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=24)
 
 
-## FEATURE EXTRACTION
-def tok(text):
-    tokens = word_tokenize(text)
-    return tokens
-
-stemmer = PorterStemmer()
-def custom_preprocessor(text):
-    stems = stemmer.stem(text)
-    return stems
-
-
-# Stopwords - CountVectorizer has an in-built stopwords list
-stop_wordss = stopwords.words('english')
-# Bag-of-Words Model
-count_vec = CountVectorizer(stop_words=stop_wordss, tokenizer=tok, ngram_range=(1,2), preprocessor=custom_preprocessor)
-X_train_counts = count_vec.fit_transform(X_train)
-
-# Tf-idf
-tfidf_transformer = TfidfTransformer(use_idf=False)
-X_train_tfidf = tfidf_transformer.fit_transform(X_train_counts)
-
-print('Done Extracting Features')
-print(f"X_train_tfidf.shape : {X_train_tfidf.shape}") # (12, 140)
-# print(X_train_tfidf)
-
-# new data to be feature-extracted before being predicted by the classifier
-X_test_count = count_vec.transform(X_test)
-X_test_tfidf = tfidf_transformer.transform(X_test_count)
-print(f"X_test_tfidf.shape : {X_test_tfidf.shape}")
-
 ## MACHINE LEARNING MODEL-BUILDING
 # Define the model
-clf = MultinomialNB()
+# Using a Pipeline makes the workflow Concise
+text_clf = Pipeline([
+    ("vect", CountVectorizer()),
+    ("tfidf", TfidfTransformer()),
+    ("clf", MultinomialNB())
+])
 
 # Train the model
-clf.fit(X_train_tfidf, y_train)
+text_clf.fit(X_train, y_train)
 print('Classifier Trained Successfully')
 
 ## MODEL EVALUATION
-predictions = clf.predict(X_test_tfidf)
-# print(predictions)
+predictions = text_clf.predict(X_test)
+
 
 print(f'\nConfusion Matrix : {confusion_matrix(y_test, predictions)}')
 print(f'\nAccuracy Score : {accuracy_score(y_test, predictions)}')
