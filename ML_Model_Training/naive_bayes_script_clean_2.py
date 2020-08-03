@@ -1,7 +1,7 @@
 import pandas as pd 
 import joblib
 from nltk.tokenize import word_tokenize #
-from nltk.corpus import stopwords
+from nltk.corpus import stopwords #
 from nltk.stem import PorterStemmer #
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.model_selection import train_test_split
