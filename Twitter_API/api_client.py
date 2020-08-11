@@ -24,3 +24,7 @@ api = tweepy.API(auth)
 me = api.me()
 
 print(me.screen_name) # username :> codewithlenny
+
+## Tweet Using Python (status_update)
+# new_status = api.update_status('Hello, World! - Did you know you could tweet using your Python Script? This tweet is an example of one of Python\'s Amazing Features. - @joincfe \n\n#python3')
+# new_status.destroy() -> Delete
