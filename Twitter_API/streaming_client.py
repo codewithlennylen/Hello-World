@@ -2,6 +2,7 @@ from tweepy import Stream
 from tweepy import OAuthHandler
 from tweepy.streaming import StreamListener
 import json
+import sys
 
 secrets = json.load(open(
     'C:/Users/lenovo/Documents/GitHub/Hello-World/Twitter_API/secrets.json', 'r'))
@@ -16,14 +17,27 @@ asecret = secrets['ACCESS_SECRET']
 
 class listener(StreamListener):
 
+    def __init__(self, output_file=sys.stdout):
+        super().__init__()
+        self.output_file = output_file
+        self.counter = 0
+        self.limit = 10
+        # self.tweet_list = list()
+
     def on_data(self, data):
         # print(data)
         all_data = json.loads(data)
         # json.dump(all_data,open('sample_tweet.json','w'))
-        tweet = all_data['text']
-        print(tweet)
+        tweet = all_data['text'].strip()
+        # self.tweet_list.append(tweet)
+        print(tweet, file=self.output_file)
         # print(all_data.keys())
-        return(True)
+        self.counter += 1
+        if self.counter < self.limit:
+            return True
+        else:
+            twitterStream.disconnect()
+            # return self.tweet_list
 
     def on_error(self, status_code):
         if status_code == 420:
@@ -36,5 +50,8 @@ class listener(StreamListener):
 auth = OAuthHandler(ckey, csecret)
 auth.set_access_token(atoken, asecret)
 
-twitterStream = Stream(auth, listener())
-twitterStream.filter(track=["100DaysofCode"])
+output = open('stream_output.txt', 'w')
+listen = listener(output_file=output)
+
+twitterStream = Stream(auth, listen)
+twitterStream.filter(track=["safaricomPLC"], languages=['en'])
