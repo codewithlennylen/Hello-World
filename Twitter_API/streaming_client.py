@@ -25,8 +25,12 @@ class listener(StreamListener):
         # print(all_data.keys())
         return(True)
 
-    def on_error(self, status):
-        print (status)
+    def on_error(self, status_code):
+        if status_code == 420:
+            #returning False in on_error disconnects the stream
+            return False
+
+        # returning non-False reconnects the stream, with backoff
 
 
 auth = OAuthHandler(ckey, csecret)
