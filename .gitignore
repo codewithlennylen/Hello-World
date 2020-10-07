@@ -4,3 +4,7 @@ ML_Model_Training/data/twitter1.6m.csv
 =======
 ML_Model_Training/resources/
 >>>>>>> Machine-Learning-Backend
+env/
+.vscode/
+Twitter_API/secrets.json
+venv/
