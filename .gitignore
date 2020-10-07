@@ -7,3 +7,4 @@ ML_Model_Training/resources/
 env/
 .vscode/
 Twitter_API/secrets.json
+venv/

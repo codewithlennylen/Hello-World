@@ -5,7 +5,7 @@ import json
 import sys
 
 secrets = json.load(open(
-    'C:/Users/lenovo/Documents/GitHub/Hello-World/Twitter_API/secrets.json', 'r'))
+    'C:/Users/Lennylen/Documents/GitHub/Hello-World/Twitter_API/secrets.json', 'r'))
 
 
 #consumer key, consumer secret, access token, access secret.
@@ -54,4 +54,4 @@ output = open('stream_output.txt', 'w')
 listen = listener(output_file=output)
 
 twitterStream = Stream(auth, listen)
-twitterStream.filter(track=["safaricomPLC"], languages=['en'])
+twitterStream.filter(track=["spacex"], languages=['en'])
