@@ -1,6 +1,7 @@
 import pandas as pd 
+import joblib
 from nltk.tokenize import word_tokenize #
-from nltk.corpus import stopwords
+from nltk.corpus import stopwords #
 from nltk.stem import PorterStemmer #
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
 from sklearn.model_selection import train_test_split
@@ -43,8 +44,19 @@ text_clf = Pipeline([
 text_clf.fit(X_train, y_train)
 print('Classifier Trained Successfully')
 
+# Saving The Model
+# joblib.dump(text_clf, open('C:/Users/lenovo/Documents/GitHub/Hello-World/ML_Model_Training/models/mini_multinomialNB.model','wb'))
+# print("Model Saved")
+
 ## MODEL EVALUATION
-predictions = text_clf.predict(X_test)
+# predictions = text_clf.predict(X_test)
+
+# Load the model
+loaded_model = joblib.load(open(
+    'C:/Users/lenovo/Documents/GitHub/Hello-World/ML_Model_Training/models/mini_multinomialNB.model', 'rb'))
+predictions = loaded_model.predict(X_test)
+
+
 
 
 print(f'\nConfusion Matrix : {confusion_matrix(y_test, predictions)}')
